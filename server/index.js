@@ -1,7 +1,8 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const cookieParser = require("cookie-parser");
-const cors = require("cors");
+import express from "express";
+import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import { userRoute } from "./routes/userRouter.js";
 
 dotenv.config();
 
@@ -15,8 +16,10 @@ app.use(cookieParser());
 app.use(cors());
 
 app.get("/", (req, res) => {
-    res.send("<h1>Hello World</h1>")
-})
+    res.send("<h1>Hello World</h1>");
+});
+
+app.use("/api/user", userRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT}`);
