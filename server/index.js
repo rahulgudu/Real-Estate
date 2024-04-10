@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import { userRoute } from "./routes/userRouter.js";
+import { residencyRouter } from "./routes/residencyRoute.js";
 
 dotenv.config();
 
@@ -20,6 +21,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/user", userRoute);
+
+app.use("/api/residency", residencyRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT}`);
