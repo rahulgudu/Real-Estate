@@ -6,17 +6,18 @@ export const api = axios.create({
   baseURL: "http://localhost:6969/api",
 });
 
-export const getAllProperties = async() => {
-    try {
-        const response = await api.get("/residency/allresd", {
-            timeout: 10 * 1000,
-        });
+export const getAllProperties = async () => {
+  try {
+    const response = await api.get("/residency/allresd", {
+        timeout: 10 * 1000
+    })
 
-        if(response.status === 400 || response.status === 500){
-            throw response.data;
-        }
-        return response.data;
-    } catch (error) {
-        toast.error("Something went wrong");
+    if(response.status === 400 || response.status === 500){
+        throw response.data
     }
-}
+    return response.data;
+  } catch (error) {
+    toast.error("Something went wrong");
+    throw error;
+  }
+};
