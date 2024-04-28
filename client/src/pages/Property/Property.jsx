@@ -7,6 +7,7 @@ import { AiFillHeart, AiTwotoneCar } from "react-icons/ai";
 import { FaShower } from "react-icons/fa";
 import { MdLocationCity, MdLocationPin, MdMeetingRoom } from "react-icons/md";
 import "./property.css";
+import Map from "../../component/Map/Map";
 const Property = () => {
   const { pathname } = useLocation();
   const id = pathname.split("/").slice(-1)[0];
@@ -46,62 +47,59 @@ const Property = () => {
         <img src={data?.image} alt="home image" />
 
         <div className="flexCenter property-details">
-            {/* left */}
-            <div className="flexColStart left">
-
-                {/* head */}
-                <div className="flexStart head">
-                    <span className="primaryText">{data?.title}</span>
-                    <span className="orangeText" style={{fontSize:"1.5rem"}}>${data?.price}</span>
-                </div>
-
-                {/* facilities */}
-                <div className="flexStart facilities">
-                    <div className="flexStart facility">
-                        <FaShower size={20} color="#1F3E72" />
-                        <span>{data?.facilites?.bathroom} Bathrooms</span>
-                    </div>
-                    <div className="flexStart facility">
-                        <AiTwotoneCar size={20} color="#1F3E72"/>
-                        <span>{data?.facilites?.parkings} Parking</span>
-                    </div>
-                    <div className="flexStart facility">
-                        <MdMeetingRoom size={20} color="#1F3E72" />
-                        <span>{data?.facilites?.bedrooms} Rooms</span>
-                    </div>
-                </div>
-
-                {/* description */}
-                <div className="secondaryText" style={{textAlign: "justify"}}>
-                    {data?.description}
-                </div>
-
-                {/* address */}
-                <div className="flexStart" style={{gap: "1rem"}}>
-                    <MdLocationPin size={25} />
-                    <span className="secondaryText">
-                        {
-                            data?.address
-                        }
-                        {
-                            data?.city
-                        }
-                        {
-                            data?.country
-                        }
-                    </span>
-                </div>
-
-                {/* booking button */}
-                <button className="button" >
-                    Book your visit
-                </button>
+          {/* left */}
+          <div className="flexColStart left">
+            {/* head */}
+            <div className="flexStart head">
+              <span className="primaryText">{data?.title}</span>
+              <span className="orangeText" style={{ fontSize: "1.5rem" }}>
+                ${data?.price}
+              </span>
             </div>
 
-            {/* right */}
-            <div className="flexColStart right">
-                This is right side
+            {/* facilities */}
+            <div className="flexStart facilities">
+              <div className="flexStart facility">
+                <FaShower size={20} color="#1F3E72" />
+                <span>{data?.facilites?.bathroom} Bathrooms</span>
+              </div>
+              <div className="flexStart facility">
+                <AiTwotoneCar size={20} color="#1F3E72" />
+                <span>{data?.facilites?.parkings} Parking</span>
+              </div>
+              <div className="flexStart facility">
+                <MdMeetingRoom size={20} color="#1F3E72" />
+                <span>{data?.facilites?.bedrooms} Rooms</span>
+              </div>
             </div>
+
+            {/* description */}
+            <div className="secondaryText" style={{ textAlign: "justify" }}>
+              {data?.description}
+            </div>
+
+            {/* address */}
+            <div className="flexStart" style={{ gap: "1rem" }}>
+              <MdLocationPin size={25} />
+              <span className="secondaryText">
+                {data?.address}
+                {data?.city}
+                {data?.country}
+              </span>
+            </div>
+
+            {/* booking button */}
+            <button className="button">Book your visit</button>
+          </div>
+
+          {/* right */}
+          <div className="map">
+            <Map
+              address={data?.address}
+              city={data?.city}
+              country={data?.country}
+            />
+          </div>
         </div>
       </div>
     </div>
