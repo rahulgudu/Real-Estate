@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import Website from "./pages/Website";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
@@ -9,12 +9,19 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Property from "./pages/Property/Property";
-import { MantineProvider } from "@mantine/core";
+import UserDetailContext from "./context/UserDetailContext";
 function App() {
   const queryClient = new QueryClient();
+
+  const [userDetails, setUserDetails] = useState({
+    favourites: [],
+    bookings: [],
+    token: null,
+  });
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <MantineProvider>
+    <UserDetailContext.Provider value={{ userDetails, setUserDetails }}>
+      <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <Suspense fallback={<div>loading....</div>}>
             <Routes>
@@ -30,8 +37,8 @@ function App() {
         </BrowserRouter>
         <ToastContainer />
         <ReactQueryDevtools initialOpen={false} />
-      </MantineProvider>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </UserDetailContext.Provider>
   );
 }
 
