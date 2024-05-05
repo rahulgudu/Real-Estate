@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
 import { getProperty } from "../../utils/api";
@@ -8,6 +8,12 @@ import { FaShower } from "react-icons/fa";
 import { MdLocationCity, MdLocationPin, MdMeetingRoom } from "react-icons/md";
 import "./property.css";
 import Map from "../../component/Map/Map";
+import useAuthCheck from "../../hooks/useAuthCheck";
+import { useAuth0 } from "@auth0/auth0-react";
+import BookingModal from "../../component/BookingModal/BookingModal";
+import UserDetailContext from "../../context/UserDetailContext";
+import { Button } from "@mantine/core";
+import "@mantine/core/styles.css";
 const Property = () => {
   const { pathname } = useLocation();
   const id = pathname.split("/").slice(-1)[0];
@@ -16,6 +22,15 @@ const Property = () => {
     getProperty(id)
   );
   // console.log(data);
+
+  const [modalOpened, setModalOpened] = useState(false);
+  const { validateLogin } = useAuthCheck();
+  const { user } = useAuth0();
+
+  const {
+    userDetails: { token, bookings },
+    setUserDetails,
+  } = useContext(UserDetailContext);
 
   if (isLoading) {
     return (
@@ -89,7 +104,33 @@ const Property = () => {
             </div>
 
             {/* booking button */}
-            <button className="button">Book your visit</button>
+            {bookings?.map((booking) => booking.id).includes(id) ? (
+              <>
+                <Button variant="outline" w={"100%"} color="red">
+                  <span>Cancel Booking</span>
+                </Button>
+
+                <span>
+                  Your visit already booked for date {bookings?.filter((booking) => booking?.id === id)[0].date}
+                </span>
+              </>
+            ) : (
+              <button
+                className="button"
+                onClick={() => {
+                  validateLogin() && setModalOpened(true);
+                }}
+              >
+                Book your visit
+              </button>
+            )}
+
+            <BookingModal
+              opened={modalOpened}
+              setOpened={setModalOpened}
+              propertyId={id}
+              email={user?.email}
+            />
           </div>
 
           {/* right */}

@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Property from "./pages/Property/Property";
 import UserDetailContext from "./context/UserDetailContext";
+import { MantineProvider } from "@mantine/core";
 function App() {
   const queryClient = new QueryClient();
 
@@ -21,23 +22,25 @@ function App() {
 
   return (
     <UserDetailContext.Provider value={{ userDetails, setUserDetails }}>
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <Suspense fallback={<div>loading....</div>}>
-            <Routes>
-              <Route element={<Layout />}>
-                <Route path="/" element={<Website />} />
-                <Route path="/properties">
-                  <Route index element={<Properties />} />
-                  <Route path=":propertyId" element={<Property />} />
+      <MantineProvider>
+        <QueryClientProvider client={queryClient}>
+          <BrowserRouter>
+            <Suspense fallback={<div>loading....</div>}>
+              <Routes>
+                <Route element={<Layout />}>
+                  <Route path="/" element={<Website />} />
+                  <Route path="/properties">
+                    <Route index element={<Properties />} />
+                    <Route path=":propertyId" element={<Property />} />
+                  </Route>
                 </Route>
-              </Route>
-            </Routes>
-          </Suspense>
-        </BrowserRouter>
-        <ToastContainer />
-        <ReactQueryDevtools initialOpen={false} />
-      </QueryClientProvider>
+              </Routes>
+            </Suspense>
+          </BrowserRouter>
+          <ToastContainer />
+          <ReactQueryDevtools initialOpen={false} />
+        </QueryClientProvider>
+      </MantineProvider>
     </UserDetailContext.Provider>
   );
 }

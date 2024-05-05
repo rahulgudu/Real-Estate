@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "client": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -16,7 +16,7 @@
     "@mantine/form": "^7.9.0",
     "@mantine/hooks": "^7.9.0",
     "axios": "^1.6.8",
-    "dayjs": "^1.11.10",
+    "dayjs": "^1.11.11",
     "esri-leaflet-geocoder": "^2.3.3",
     "framer-motion": "^10.8.5",
     "lodash": "^4.17.21",

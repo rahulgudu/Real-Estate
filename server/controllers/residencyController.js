@@ -63,6 +63,6 @@ export const getResidency = asyncHandler(async (req, res) => {
     });
     res.send(residency);
   } catch (error) {
-    throw new Error(err.message);
+    throw new Error(error.message);
   }
 });
