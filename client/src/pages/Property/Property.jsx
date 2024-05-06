@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
-import { getProperty } from "../../utils/api";
+import { getProperty, removeBooking } from "../../utils/api";
 import { PuffLoader } from "react-spinners";
 import { AiFillHeart, AiTwotoneCar } from "react-icons/ai";
 import { FaShower } from "react-icons/fa";
@@ -14,6 +14,7 @@ import BookingModal from "../../component/BookingModal/BookingModal";
 import UserDetailContext from "../../context/UserDetailContext";
 import { Button } from "@mantine/core";
 import "@mantine/core/styles.css";
+import { toast } from "react-toastify";
 const Property = () => {
   const { pathname } = useLocation();
   const id = pathname.split("/").slice(-1)[0];
@@ -32,6 +33,18 @@ const Property = () => {
     setUserDetails,
   } = useContext(UserDetailContext);
 
+  const {mutate: cancelBooking, isLoading: cancelling} = useMutation({
+    mutationFn: () => removeBooking(id, user?.email, token),
+    onSuccess: () => {
+      setUserDetails((prev) => ({
+        ...prev,
+        bookings: prev.bookings.filter((booking) => booking?.id !== id)
+      }))
+      toast.success("Booking Cancelled", {position: "bottom-right"})
+    }
+  })
+  console.log(user.email);
+  
   if (isLoading) {
     return (
       <div className="flexCenter paddings">
@@ -106,7 +119,7 @@ const Property = () => {
             {/* booking button */}
             {bookings?.map((booking) => booking.id).includes(id) ? (
               <>
-                <Button variant="outline" w={"100%"} color="red">
+                <Button variant="outline" w={"100%"} color="red" onClick={() => cancelBooking()} disabled={cancelling}>
                   <span>Cancel Booking</span>
                 </Button>
 
