@@ -15,6 +15,7 @@ import UserDetailContext from "../../context/UserDetailContext";
 import { Button } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { toast } from "react-toastify";
+import Heart from "../../component/Heart/Heart";
 const Property = () => {
   const { pathname } = useLocation();
   const id = pathname.split("/").slice(-1)[0];
@@ -43,7 +44,6 @@ const Property = () => {
       toast.success("Booking Cancelled", {position: "bottom-right"})
     }
   })
-  console.log(user.email);
   
   if (isLoading) {
     return (
@@ -68,7 +68,7 @@ const Property = () => {
       <div className="flexColStart paddings innerWidth property-container">
         {/* like button */}
         <div className="like">
-          <AiFillHeart size={24} color="white" />
+          <Heart id={id}/>
         </div>
 
         {/* image */}
