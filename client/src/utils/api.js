@@ -87,18 +87,3 @@ export const removeBooking = async (id, email, token) => {
   }
 };
 
-export const toFav = async (id, email, token) => {
-  try {
-    await api.post(
-      `/user/toFav/${id}`,
-      {email},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
-    )
-  } catch (error) {
-    throw error;
-  }
-}

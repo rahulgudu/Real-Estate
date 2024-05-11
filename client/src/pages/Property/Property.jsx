@@ -15,7 +15,6 @@ import UserDetailContext from "../../context/UserDetailContext";
 import { Button } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { toast } from "react-toastify";
-import Heart from "../../component/Heart/Heart";
 const Property = () => {
   const { pathname } = useLocation();
   const id = pathname.split("/").slice(-1)[0];
@@ -68,7 +67,7 @@ const Property = () => {
       <div className="flexColStart paddings innerWidth property-container">
         {/* like button */}
         <div className="like">
-          <Heart id={id}/>
+          <AiFillHeart size={30} color="white" />
         </div>
 
         {/* image */}
