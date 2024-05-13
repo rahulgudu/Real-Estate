@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Modal, Stepper } from "@mantine/core";
 import "@mantine/core/styles.css";
 import AddLocation from "../AddLocation/AddLocation";
@@ -22,9 +22,19 @@ const AddPropertyModel = ({ opened, setOpened }) => {
       parkings: 0,
       bathrooms: 0,
     },
-    userEmail: user.email,
+    userEmail: "",
   });
-  console.log(propertyDetails.userEmail);
+  useEffect(() => {
+    // Set userEmail once user is available
+    if (user) {
+      setPropertyDetails((prevDetails) => ({
+        ...prevDetails,
+        userEmail: user.email ?? "", // Use user.email if available, otherwise fallback to empty string
+      }));
+    }
+  }, [user]);
+
+  console.log(propertyDetails.userEmail); // Log userEmail
 
   const nextStep = () => {
     setActive((current) => (current < 4 ? current + 1 : current));

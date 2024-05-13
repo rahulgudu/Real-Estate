@@ -24,7 +24,7 @@ const AddLocation = ({ propertyDetails, setPropertyDetails, nextStep }) => {
   const handleSubmit = () => {
     const {hasErrors} = form.validate()
     if(!hasErrors){
-        setPropertyDetails((prev) => ({...prev, city, address, address, country}))
+        setPropertyDetails((prev) => ({...prev, city, address, country}))
         nextStep()
     }
   }
