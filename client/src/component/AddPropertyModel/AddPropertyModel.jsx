@@ -17,13 +17,14 @@ const AddPropertyModel = ({ opened, setOpened }) => {
     city: "",
     address: "",
     image: null,
-    facilities: {
+    facilites: {
       bedrooms: 0,
       parkings: 0,
       bathrooms: 0,
     },
-    userEmail: user?.email,
+    userEmail: user.email,
   });
+  console.log(propertyDetails.userEmail);
 
   const nextStep = () => {
     setActive((current) => (current < 4 ? current + 1 : current));

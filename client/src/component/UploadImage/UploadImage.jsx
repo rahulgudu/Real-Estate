@@ -14,6 +14,8 @@ const UploadImage = ({
 
   const handleNext = () => {
     setPropertyDetails((prev) => ({...prev, image: imageURL}))
+    
+    nextStep();
   }
 
   useEffect(() => {
@@ -27,7 +29,6 @@ const UploadImage = ({
       (err, result) => {
         if (result.event === "success") {
           setImageURL(result.info.secure_url);
-          nextStep();
         }
       }
     );
