@@ -1,28 +1,28 @@
 import React, { useState } from "react";
-import "./profile.css"
+import { Avatar, Menu } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
 const ProfileMenu = ({ user, logout }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const navigate = useNavigate();
 
   return (
-    <div className="profile-menu">
-      <div className="avatar" onClick={toggleMenu}>
-        <img src={user?.picture} alt="user image" />
-        {isMenuOpen && (
-          <div className="dropdown-menu">
-            <button>Favourites</button>
-            <button>Bookings</button>
-            <button onClick={() => {
-                localStorage.clear();
-                logout();
-            }}>Logout</button>
-          </div>
-        )}
-      </div>
-    </div>
+    <Menu>
+      <Menu.Target>
+        <Avatar src={user?.picture} alt="user image" radius={"xl"} />
+      </Menu.Target>
+      <Menu.Dropdown>
+        <Menu.Item onClick={() => navigate("/bookings", { replace: true })}>
+          Bookings
+        </Menu.Item>
+        <Menu.Item
+          onClick={() => {
+            localStorage.clear();
+            logout();
+          }}
+        >
+          Logout
+        </Menu.Item>
+      </Menu.Dropdown>
+    </Menu>
   );
 };
 

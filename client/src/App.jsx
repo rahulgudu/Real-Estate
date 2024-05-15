@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Property from "./pages/Property/Property";
 import UserDetailContext from "./context/UserDetailContext";
 import { MantineProvider } from "@mantine/core";
+import Bookings from "./pages/Bookings/Bookings";
 function App() {
   const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ function App() {
                     <Route index element={<Properties />} />
                     <Route path=":propertyId" element={<Property />} />
                   </Route>
+                  <Route path="/bookings" element={<Bookings />} />
                 </Route>
               </Routes>
             </Suspense>
